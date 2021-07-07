@@ -1,0 +1,21 @@
+{
+  "name": "tripadvisor-locationid-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-json-modules main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shakeebshams/tripadvisor-locationid-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shakeebshams/tripadvisor-locationid-generator/issues"
+  },
+  "homepage": "https://github.com/shakeebshams/tripadvisor-locationid-generator#readme"
+}
