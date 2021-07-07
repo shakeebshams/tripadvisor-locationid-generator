@@ -1,11 +1,6 @@
-
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import axios from 'axios';
 dotenv.config();
-import cities from './countries.json';
+import data from './data.json';
 import { SearchQuery } from './graphql-queries.js';
 import Apify from 'apify'
 const { log, sleep, requestAsBrowser } = Apify.utils;
@@ -13,7 +8,8 @@ import cheerio from 'cheerio';
 import pkg from 'mongodb';
 const { MongoClient } = pkg;
 const DBurl = process.env.MONGO_URI
-let usa = cities["United States"];
+
+let usa = data["United States"];
 let unique = [...new Set(usa)];
 
 const dbName = 'hotels'
