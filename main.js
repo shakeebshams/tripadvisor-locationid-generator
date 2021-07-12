@@ -9,10 +9,7 @@ import pkg from 'mongodb';
 const { MongoClient } = pkg;
 const DBurl = process.env.MONGO_URI
 
-let usa = data["United States"];
-let unique = [...new Set(usa)];
-
-const dbName = 'hotels'
+const dbName = 'cities'
 let db
 
 MongoClient.connect(DBurl, { useNewUrlParser: true }, (err, client) => {
@@ -24,18 +21,42 @@ MongoClient.connect(DBurl, { useNewUrlParser: true }, (err, client) => {
 });
 
 async function main() {
-
-    //using for loop intead of for each as it would be processed async by default
-    for (let i = 0; i < unique.length; i++) {
-        try {
-            let city = unique[i] + " usa";
-            console.log("city being processed: " + city);
-            let location_id = await get_location_id(city);
-        } catch (err) {
-            console.error(error);
+    let country = "United States";
+    let country_data = get_country(country);
+    let states = country_data.states.slice(65);
+    //states.forEach(async (state) => {
+    for (const state of states) {
+        let state_name = state.name;
+        let cities = state.cities; // array of cities
+        console.log("Now processing " + state_name);
+        for (const city of cities) {
+        //cities.forEach(async (city) => {
+            let city_name = city.name;
+            let search_query = `${city_name} ${state_name}`;
+            try {
+                let location_id = await get_location_id(search_query);
+                let location_json = {id: location_id};
+                let collection = db.collection("citylist");
+                await collection.findOne({id: location_id}, async function(err, doc) {
+                    if (!doc) {
+                        await collection.insertOne(location_json, function(err, res) {
+                            if (err) {
+                                console.log(err);
+                            };
+                        });
+                    } else {
+                        console.log("already exists: " + location_id)
+                    }
+                }); 
+            } catch (err) {
+                console.error(err);
+            }
         }
-
     }
+}
+
+function get_country(country) {
+    return data.find(element => element.name === country);
 }
 
 /**

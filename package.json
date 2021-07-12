@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/shakeebshams/tripadvisor-locationid-generator/issues"
   },
-  "homepage": "https://github.com/shakeebshams/tripadvisor-locationid-generator#readme"
+  "homepage": "https://github.com/shakeebshams/tripadvisor-locationid-generator#readme",
+  "dependencies": {
+    "apify": "^1.2.1",
+    "cheerio": "*",
+    "dotenv": "^10.0.0",
+    "mongodb": "^3.6.10"
+  }
 }
